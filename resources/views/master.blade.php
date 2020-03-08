@@ -9,17 +9,32 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
+    <!-- Style Bulma -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+
 </head>
 
 <!-- BODY -->
 
 <body>
 
-<li><a href="/">Home</a></li>
-<li><a href="/contact">Contact Us</a></li>
-<li><a href="/about">About Us</a></li>
 
-@yield('content')
+
+    <div class="column is-half">
+        <h1 class="title">Welcome to my new website</h1>
+    </div>
+
+    <nav class="navbar">
+        <a href="/" class="navbar-item">Home</a>
+        <a href="/contact" class="navbar-item">Contact Us</a>
+        <a href="/about" class="navbar-item">About Us</a>
+        <a href="/projects" class="navbar-item">Projects</a>
+        <a href="/projects/create" class="navbar-item">Create New Project</a>
+    </nav>
+
+    <div class="column is-half">
+        @yield('content')
+    </div>
 
 
 
