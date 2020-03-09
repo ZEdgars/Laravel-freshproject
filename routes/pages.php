@@ -1,0 +1,27 @@
+<?php
+
+use Arbory\Base\Admin\Constructor\ConstructorLayout;
+use Arbory\Base\Admin\Constructor\Models\ConstructorPage;
+use Arbory\Base\Admin\Form\FieldSet;
+use Arbory\Base\Pages\TextPage;
+
+Page::register(TextPage::class)
+    ->fields(function (Arbory\Base\Admin\Form\FieldSet $fieldSet) {
+        $fieldSet->richtext('html')->rules('required');
+    })
+    ->routes(function () {
+        // ...
+    });
+
+Page::register(ConstructorPage::class)
+    ->fields(function (FieldSet $fieldSet) {
+        $fieldSet->constructor('blocks')->setHidden(true);
+    })
+    ->layout(function ($form, $layout) {
+        $constructor = new ConstructorLayout('content.blocks');
+        $constructor->setForm($form);
+
+        $layout->use($constructor);
+    })->routes(function () {
+        // ...
+    });
