@@ -8,8 +8,14 @@ App\Projects - this is how it is set up in the Model file
 */
 use App\Project;
 
+
+
+
 class ProjectsController extends Controller
 {
+
+
+
     public function index()
     {
         // Fetch all projects + save it to a variable
@@ -19,61 +25,85 @@ class ProjectsController extends Controller
         return view('projects.index', compact('projects'));
     }
 
+
+
+
+
     public function create()
     {
         return view('projects.create');
     }
 
+
+
+
+
+
+
     // Store request data
     public function store()
     {
 
-        $project = new Project();
+        // This is back-end validation for the form. So empty field is not allowed.
 
-        $project->title = request('title');
-        $project->description = request('description');
+        $attributes = request()->validate([
+            'title' => ['required', 'min:3'], // require min3 characters
+            'description' => ['required', 'max:25']
+        ]);
 
-        $project->save();
+        Project::create($attributes);
 
         return redirect('/projects');
-
     }
 
-    public function show($id)
+
+
+
+
+
+    // Fetches the project and passes it to the controller
+    public function show(Project $project)
     {
-        // Grab the project ID
-        $project = Project::findOrFail($id);
+        // Grab the project ID (Longer way)
+        // $project = Project::findOrFail($id);
 
         return view('projects.show', compact('project'));
     }
 
 
-    public function edit($id)
-    {
-        // Grab the project ID
-        $project = Project::findOrFail($id);
 
+
+
+
+
+    public function edit(Project $project)
+    {
         // Pass it through to the view
         return view('projects.edit', compact('project'));
     }
 
 
-    public function update($id)
+
+
+
+
+
+    public function update(Project $project)
     {
-        $project = Project::findOrFail($id);
-
-        $project->title = request('title');
-        $project->description = request('description');
-
-        $project->save();
+        $project->update(request(['title', 'description']));
 
         return redirect('/projects');
     }
 
 
-    public function destroy($id)
+
+
+
+
+
+    public function destroy(Project $project)
     {
-        Project::findOrFail($id)->delete();
+        $project->delete();
 
         return redirect('/projects');
     }

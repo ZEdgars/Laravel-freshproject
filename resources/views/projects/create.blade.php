@@ -12,21 +12,53 @@
 
         {{ csrf_field() }}
 
-        <div class="field">
-            <input class="input" type="text" name="title" placeholder="Project title">
-        </div>
+
+
 
         <div class="field">
+
+            <label for="title" class="label">Project Title</label>
+
             <div class="control">
-                <textarea name="description" class="textarea" placeholder="Project description"></textarea>
+                <input type="text" class="input" {{ $errors->has('title') ? 'is-danger' : '' }} name="title" value="{{ old('title') }}">
             </div>
+
         </div>
+
+
+
+        <div class="field">
+
+            <label for="description" class="label">Project Description</label>
+
+            <div class="control">
+                <!-- This is front-end side browser validation (using require). But must/better have back-end as well -->
+                <textarea name="description" class="textarea" placeholder="Project description" required>{{ old('description') }}</textarea>
+            </div>
+
+        </div>
+
+
+
 
         <div class="field">
             <div class="control">
                 <button type="submit" class="button is-link">Create Project</button>
             </div>
         </div>
+
+
+
+        <!-- Only if we have errors, show this notification box -->
+        @if ($errors->any())
+            <div class="notification is-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }} </li>
+                        @endforeach
+                </ul>
+            </div>
+        @endif
 
     </form>
 

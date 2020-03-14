@@ -43,7 +43,9 @@
 
         <form method="POST" action="/projects/{{ $project->id }}">
 
-            // Same as above, but shorthand
+            <hr>
+
+            <!-- Same as above, but shorthand -->
             @method('DELETE')
             @csrf
 
