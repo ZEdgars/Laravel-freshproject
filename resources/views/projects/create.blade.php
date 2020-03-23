@@ -20,7 +20,12 @@
             <label for="title" class="label">Project Title</label>
 
             <div class="control">
-                <input type="text" class="input" {{ $errors->has('title') ? 'is-danger' : '' }} name="title" value="{{ old('title') }}">
+                <input
+                    type="text"
+                    class="input" {{ $errors->has('title') ? 'is-danger' : '' }}
+                    name="title"
+                    value="{{ old('title') }}"
+                    required>
             </div>
 
         </div>
@@ -33,7 +38,12 @@
 
             <div class="control">
                 <!-- This is front-end side browser validation (using require). But must/better have back-end as well -->
-                <textarea name="description" class="textarea" placeholder="Project description" required>{{ old('description') }}</textarea>
+                <textarea
+                    name="description"
+                    class="textarea {{ $errors->has('description') ? 'is-danger' : '' }}"
+                    required>
+                    {{ old('description') }}
+                </textarea>
             </div>
 
         </div>
@@ -49,16 +59,7 @@
 
 
 
-        <!-- Only if we have errors, show this notification box -->
-        @if ($errors->any())
-            <div class="notification is-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }} </li>
-                        @endforeach
-                </ul>
-            </div>
-        @endif
+        @include ('errors')
 
     </form>
 

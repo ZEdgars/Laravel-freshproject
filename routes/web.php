@@ -36,7 +36,28 @@ Route::delete('/projects/{project}', 'ProjectsController@destroy');
 
 // ---------- FORM ROUTING (SHORT BETTER WAY) ----------
 
-// Creates everything you need
-// Use this to create full ProjectsController.php with everything generated: php artisan make: controller ProjectsController -r
-// In this case we created our own controller from scratch.
+/* Creates everything you need
+Use this to create full ProjectsController.php with everything generated: php artisan make: controller ProjectsController -r
+In this case we created our own controller from scratch.
+*/
 Route::resource('/projects', 'ProjectsController');
+
+
+
+
+
+
+/* FOR FORM CHECK BOX
+When we receive a patch request, activate controller
+*/
+// Route::patch('/tasks/{task}', 'ProjectTasksController@update');
+
+/*
+For creating new task. This is where it is stored.
+*/
+Route::post('/projects/{project}/tasks', 'ProjectTasksController@store');
+Route::post('/completed-tasks/{task}', 'CompletedTasksController@store');
+Route::delete('/completed-tasks/{task}', 'CompletedTasksController@destroy');
+
+
+
